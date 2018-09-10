@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MediaButton Pressed</string>
+    <string name="media_button">MediaButton Handler</string>
+</resources>

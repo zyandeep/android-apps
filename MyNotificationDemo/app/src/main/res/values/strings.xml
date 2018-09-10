@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My Notification Demo</string>
+    <string name="my_not_channel">my channel</string>
+</resources>

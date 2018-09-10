@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Guess the Superhero</string>
+    <string name="superhero_image">Superhero Image</string>
+</resources>

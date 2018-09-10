@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="30dp"
+        android:text="Required Network Type:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="70dp"
+        android:checkedButton="@+id/no_network"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/no_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="None" />
+
+        <RadioButton
+            android:id="@+id/any_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Any" />
+
+        <RadioButton
+            android:id="@+id/wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Wifi" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="97dp"
+        android:layout_marginStart="103dp"
+        android:onClick="scheduleJob"
+        android:text="Schedule Jobs" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="39dp"
+        android:layout_toEndOf="@+id/textView3"
+        android:onClick="cancelJob"
+        android:text="Cancel Job" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="122dp"
+        android:text="Requires:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="163dp"
+        android:switchPadding="8dp"
+        android:text="Device Idle" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/seekBar"
+        android:layout_alignTop="@+id/switch1"
+        android:switchPadding="8dp"
+        android:text="Device Chraging" />
+
+    <TextView
+        android:id="@+id/myTextView"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="210dp"
+        android:text="Override Deadline:"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/seekBar_value"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/switch2"
+        android:layout_alignTop="@+id/myTextView"
+        android:text="Not Set"
+        android:textAlignment="viewStart"
+        android:textSize="18sp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="287dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_centerVertical="true" />
+
+    <Switch
+        android:id="@+id/p_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginBottom="204dp"
+        android:switchPadding="10dp"
+        android:text="Periodic" />
+</RelativeLayout>

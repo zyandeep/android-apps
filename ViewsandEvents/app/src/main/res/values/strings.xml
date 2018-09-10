@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Views and Events</string>
+    <string name="buttonText">Button 1</string>
+    <string name="buttonText2">Button 2</string>
+    <string name="Title">UI and Events</string>
+</resources>

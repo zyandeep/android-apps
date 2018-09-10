@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Three Activities</string>
+    <string name="button_3">Text Three</string>
+    <string name="button_2">Text Two</string>
+    <string name="button_1">Text One</string>
+    <string name="paragraph_image">paragraph image</string>
+    <string name="new_article">New Article</string>
+
+    <string name="podcast">A <b>podcast</b>, or generically netcast, is an episodic series of digital audio or video files which a user can download and listen to. It is often available for subscription, so that new episodes are automatically downloaded via web syndication to the user\'s own local computer, mobile application, or portable media player.\n\n
+                        The word was originally suggested by Ben Hammersley as a portmanteau of \"iPod\" (a brand of media player) and "broadcast".\n\n
+                        The files distributed are in audio format, but may sometimes include other file formats such as PDF or EPUB. Videos which are shared following a podcast model are sometimes called video podcasts or vodcasts.\n
+                        Visit <i>https://en.wikipedia.org/wiki/Podcast</i> for more information.
+    </string>
+
+    <string name="rick_and_morty">
+        <b>Rick and Morty</b> is an American adult animated science fiction adventure comedy series created by Justin Roiland and Dan Harmon for Cartoon Network\'s late-night programming block Adult Swim. The series follows the misadventures of cynical mad scientist Rick Sanchez and his good-hearted but fretful grandson Morty Smith, who split their time between domestic life and interdimensional adventures. The series premiered on December 2, 2013, and the third season concluded on October 1, 2017. In May 2018, the series was picked up for an additional 70 episodes over an unspecified number of seasons.\n\nRoiland voices the eponymous characters, with Chris Parnell, Spencer Grammer and Sarah Chalke voicing the rest of the family. The series originated from an animated short parody film of Back to the Future, The Real Animated Adventures of Doc and Mharti, created by Roiland for Channel 101, a short film festival co-founded by Harmon. When Adult Swim approached Harmon for television show ideas, he and Roiland decided to develop a program based on the short. The series has received universal acclaim for its originality, creativity and humor.\n
+        Visit <i>https://www.imdb.com/title/tt2861424/</i> for more information.
+    </string>
+
+    <string name="macos">
+        <b>macOS Mojave</b> (/moʊˈhɑːvi, mə-/ mo-HAH-vee) (version 10.14) is the upcoming fifteenth major release of macOS, Apple Inc.\'s desktop operating system for Macintosh computers. The successor to macOS High Sierra, it was announced at the WWDC 2018 on June 4, 2018. It brings several iOS apps to the desktop including Apple News, Voice Memos, and Home; includes a much more comprehensive Dark Mode and is the final version of macOS to support 32-bit apps.\n\n
+        Following the California landmark-based naming system introduced with OS X Mavericks, the name "Mojave" refers to the Mojave Desert in California.\n\n
+        As of June 2018, developer and public beta releases of macOS Mojave are available. The developer beta is available to Apple Developer Program members while the public beta was made available to participants in the Apple Beta Software Program on June 26, 2018.\n
+        Visit <i>https://www.apple.com/in/macos/mojave-preview/</i> for more information.
+    </string>
+
+</resources>

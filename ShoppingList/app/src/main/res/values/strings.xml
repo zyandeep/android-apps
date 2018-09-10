@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Shopping List</string>
+    <string name="add_item">Add Item</string>
+    <string name="your_shopping_list">Your Shopping List</string>
+    <string name="list">Some Common Shopping Items...</string>
+    <string name="cheese">Cheese</string>
+    <string name="rice">Rice</string>
+    <string name="apples">Apples</string>
+    <string name="onions">Onions</string>
+    <string name="fruit_juice">Fruit Juice</string>
+    <string name="tea_and_coffee">Tea and Coffee</string>
+    <string name="ketchup">Ketchup</string>
+    <string name="milk">Milk</string>
+    <string name="cookies">Biscuite</string>
+    <string name="locate_store">Locate store</string>
+    <string name="locate">Locate</string>
+</resources>

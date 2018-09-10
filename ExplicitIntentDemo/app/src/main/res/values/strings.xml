@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Explicit Intent Demo</string>
+    <string name="next">Next</string>
+    <string name="screen_1">Screen 1</string>
+    <string name="sceond_activity">Sceond Activity</string>
+    <string name="enter_something">Enter something</string>
+</resources>

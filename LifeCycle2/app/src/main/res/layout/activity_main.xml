@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/reply_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="27dp"
+        android:text="@string/reply_received"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/reply_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@id/reply_header"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="69dp"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+
+    <Button
+        android:id="@+id/button_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="8dp"
+        android:onClick="launchSecondActivity"
+        android:text="@string/send" />
+
+    <EditText
+        android:id="@+id/editText_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/button_send"
+        android:layout_marginStart="8dp"
+        android:layout_toLeftOf="@+id/button_send"
+        android:layout_toStartOf="@+id/button_send"
+        android:ems="10"
+        android:hint="@string/msg_hint"
+        android:inputType="textPersonName"
+        android:textAlignment="viewStart" />
+</RelativeLayout>

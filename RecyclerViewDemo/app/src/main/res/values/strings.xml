@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">RecyclerView Demo</string>
+    <string name="sb_message">Are you ready to exit?</string>
+    <string name="sb_action_message">Yup!</string>
+    <string name="exit_msg">Tap Heading to quit</string>
+
+    <string-array name="pets_name">
+        <item>Puppy</item>
+        <item>Kitten</item>
+        <item>Turtle</item>
+        <item>Rabbit</item>
+        <item>Parrot</item>
+        <item>Goldfish</item>
+        <item>Hamster</item>
+        <item>Cow</item>
+        <item>Sheep</item>
+    </string-array>
+
+    <string-array name="desctiption">
+        <item>Puppies are mortal</item>
+        <item>Kittens have 9 lives</item>
+        <item>Turtles like to win races</item>
+        <item>Rabbit loves swimming</item>
+        <item>Parrot can fly</item>
+        <item>Goldfish lives in aquariums</item>
+        <item>Hamster looks kinda rat</item>
+        <item>Cow goes Moooo!</item>
+        <item>Sheep are yummy</item>
+    </string-array>
+</resources>

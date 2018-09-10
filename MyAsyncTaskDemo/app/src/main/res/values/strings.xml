@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MyAsyncTaskDemo</string>
+    <string name="button_action">Open Progress Dialog</string>
+    <string name="heading">AsyncTask Demo</string>
+</resources>

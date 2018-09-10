@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="30dp"
+        android:text="Team 1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <ImageView
+        android:id="@+id/t1_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:onClick="decreaseScore"
+        android:background="@drawable/button_background"
+        app:srcCompat="@drawable/ic_minus" />
+
+    <ImageView
+        android:id="@+id/t1_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView"
+        android:background="@drawable/button_background"
+        android:onClick="increaseScore"
+        android:layout_marginEnd="87dp"
+        app:srcCompat="@drawable/ic_add" />
+
+    <TextView
+        android:id="@+id/t1_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView"
+        android:layout_marginEnd="194dp"
+        android:text="0"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginBottom="116dp"
+        android:text="Team 2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <ImageView
+        android:id="@+id/t2_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:background="@drawable/button_background"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_minus" />
+
+    <ImageView
+        android:id="@+id/t2_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:background="@drawable/button_background"
+        android:layout_alignStart="@+id/t1_plus"
+        app:srcCompat="@drawable/ic_add" />
+
+    <TextView
+        android:id="@+id/t2_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignStart="@+id/t1_score"
+        android:text="0"
+        android:textSize="24sp" />
+</RelativeLayout>

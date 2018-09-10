@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/droid_dessert"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subheading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/heading"
+        android:layout_marginTop="71dp"
+        android:padding="10dp"
+        android:text="@string/choose_a_dessert"
+        android:textAlignment="textStart"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/donut"
+        android:layout_width="131dp"
+        android:layout_height="101dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/heading"
+        android:layout_below="@id/subheading"
+        android:layout_marginTop="122dp"
+        android:contentDescription="@string/donuts"
+        android:onClick="showDonutOrder"
+        app:srcCompat="@drawable/donut_circle" />
+
+    <TextView
+        android:id="@+id/donut_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/donut"
+        android:layout_below="@id/subheading"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/donut"
+        android:padding="8dp"
+        android:text="@string/donuts"
+        android:textAlignment="textStart" />
+
+    <ImageView
+        android:id="@+id/ice_cream"
+        android:layout_width="131dp"
+        android:layout_height="101dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/heading"
+        android:layout_below="@id/donut"
+        android:layout_marginBottom="162dp"
+        android:contentDescription="@string/icecreams"
+        android:onClick="showIcecreamOrder"
+        app:srcCompat="@drawable/icecream_circle" />
+
+    <TextView
+        android:id="@+id/icecream_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/ice_cream"
+        android:layout_below="@id/donut_textView"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/ice_cream"
+        android:padding="8dp"
+        android:text="@string/donuts"
+        android:textAlignment="textStart" />
+
+    <ImageView
+        android:id="@+id/froyo"
+        android:layout_width="131dp"
+        android:layout_height="101dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/heading"
+        android:layout_marginBottom="52dp"
+        android:onClick="showFroyoOrder"
+        app:srcCompat="@drawable/froyo_circle" />
+
+    <TextView
+        android:id="@+id/froyo_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/froyo"
+        android:layout_below="@id/icecream_textView"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/froyo"
+        android:padding="8dp"
+        android:text="@string/froyos"
+        android:textAlignment="textStart" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="21dp"
+        android:layout_marginEnd="23dp"
+        app:fabSize="auto"
+        android:onClick="fabTapped"
+        app:srcCompat="@drawable/ic_map" />
+
+</RelativeLayout>

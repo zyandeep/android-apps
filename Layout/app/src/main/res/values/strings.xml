@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Animation</string>
+    <string name="enter_a_message">Enter a message</string>
+    <string name="send_button">Send</string>
+    <string name="bart_picture">Bart Picture</string>
+    <string name="homer_image">Homer image</string>
+</resources>

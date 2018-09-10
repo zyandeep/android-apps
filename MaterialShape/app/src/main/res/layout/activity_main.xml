@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/droid_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="89dp"
+        android:layout_marginBottom="120dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginStart="74dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rectangle_pic"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="makeTransition"
+        android:transitionName="simple_android"
+        app:srcCompat="@drawable/ic_android" />
+
+    <ImageView
+        android:id="@+id/square_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="143dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/circle_pic"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="doAnimate"
+        app:srcCompat="@drawable/rectangle" />
+
+    <ImageView
+        android:id="@+id/circle_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toStartOf="@+id/square_pic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/square_pic"
+        app:srcCompat="@drawable/circle" />
+
+    <ImageView
+        android:id="@+id/rectangle_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="55dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/droid_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/droid_pic"
+        android:onClick="doExplode"
+        app:srcCompat="@drawable/square" />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WordListSQLite</string>
+    <string name="title">
+        Add some words and their descriptions.Do edit, delete, update and search operations on them.
+        For example:
+    </string>
+</resources>

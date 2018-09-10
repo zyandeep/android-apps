@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Coffee Order</string>
+    <string name="price">Rs 10 per cup</string>
+    <string name="quantity">Quantity :</string>
+    <string name="inputAmount">0</string>
+    <string name="up">Increase</string>
+    <string name="down">Decrease</string>
+    <string name="total">Rs. 0</string>
+    <string name="totalPrice">Total :</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TestUI</string>
+    <string name="text1">Jelly Bean</string>
+    <string name="text2">MarshMellow</string>
+    <string name="text3">Nougat</string>
+    <string name="text4">Oreo</string>
+    <string name="text5">Android</string>
+</resources>

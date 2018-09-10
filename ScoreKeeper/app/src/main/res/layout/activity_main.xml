@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_marginTop="16dp"
+        android:text="@string/team_1"
+        app:layout_constraintEnd_toEndOf="@+id/t1_score"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/t1_score"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/team_style" />
+
+    <ImageView
+        android:id="@+id/t1_minus"
+        android:layout_marginTop="157dp"
+        app:layout_constraintEnd_toEndOf="@+id/t2_minus"
+        app:layout_constraintStart_toStartOf="@+id/t2_minus"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="decreaseScore"
+        app:srcCompat="@drawable/ic_minus"
+        style="@style/minus_button_style" />
+
+    <ImageView
+        android:id="@+id/t1_plus"
+        app:layout_constraintBottom_toBottomOf="@+id/t1_score"
+        app:layout_constraintEnd_toEndOf="@+id/t2_plus"
+        app:layout_constraintStart_toStartOf="@+id/t2_plus"
+        app:layout_constraintTop_toTopOf="@+id/t1_score"
+        android:onClick="increaseScore"
+        app:srcCompat="@drawable/ic_add"
+        style="@style/plus_button_style" />
+
+    <TextView
+        android:id="@+id/t1_score"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/t1_minus"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/t1_minus"
+        style="@style/score_text" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_marginBottom="202dp"
+        android:layout_marginTop="201dp"
+        android:text="Team 2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/t2_score"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/t2_score"
+        app:layout_constraintTop_toBottomOf="@+id/textView1"
+        style="@style/team_style" />
+
+    <ImageView
+        android:id="@+id/t2_minus"
+        android:layout_marginBottom="105dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="103dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        android:onClick="decreaseScore"
+        app:srcCompat="@drawable/ic_minus"
+        style="@style/minus_button_style" />
+
+    <ImageView
+        android:id="@+id/t2_plus"
+        android:layout_marginEnd="58dp"
+        app:layout_constraintBottom_toBottomOf="@+id/t2_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/t2_score"
+        android:onClick="increaseScore"
+        app:srcCompat="@drawable/ic_add"
+        style="@style/plus_button_style" />
+
+    <TextView
+        android:id="@+id/t2_score"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/t2_minus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/t2_minus"
+        style="@style/score_text" />
+</android.support.constraint.ConstraintLayout>

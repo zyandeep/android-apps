@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="example_switch"
+        android:summary="Turn this option on or off"
+        android:title="Settings option" />
+
+    <EditTextPreference
+        android:defaultValue="John Smith"
+        android:inputType="text|textCapWords"
+        android:key="edit_text_pref"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Your name is John Smith"
+        android:title="Display Name" />
+
+    <ListPreference
+        android:defaultValue="US"
+        android:entries="@array/fav_place"
+        android:entryValues="@array/fav_place_abb"
+        android:key="list_pref"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="Favourite Place" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="check_box_pref"
+        android:summary="Reset settings to defaults"
+        android:title="Clear all settings" />
+
+</PreferenceScreen>

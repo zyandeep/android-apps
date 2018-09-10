@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Hello Android</string>
+    <string name="my_great_app">My Great App</string>
+    <string name="hello_android">Hello Android :)</string>
+</resources>

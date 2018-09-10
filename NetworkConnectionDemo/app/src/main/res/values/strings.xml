@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Network Connection Demo</string>
+    <string name="heading">Network Connection</string>
+    <string name="download_content">Download Content</string>
+</resources>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Phrase Translate</string>
+    <string name="heading">Common Russian Phrases</string>
+    <string name="meeting_people">Meeting People</string>
+    <string name="city_tour">City Tour</string>
+    <string name="about_food">About Food</string>
+    <string name="arround_the_house">Arround the House</string>
+    <string name="speaking_time">Speaking Time</string>
+    <string name="enjoying_sports">Enjoying Sports</string>
+    <string name="job_profession">Job/Profession</string>
+    <string name="appointment">Appointment</string>
+</resources>

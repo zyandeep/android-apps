@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderActivity">
+
+    <TextView
+        android:id="@+id/option_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:padding="8dp"
+        android:text="@string/choose_a_delivery_method"
+        android:textAlignment="textStart"
+        android:textSize="24sp" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="22dp"
+        android:orientation="vertical"
+        android:layout_marginTop="83dp" >
+
+        <RadioButton
+            android:id="@+id/sameday"
+            android:layout_width="match_parent"
+            android:checked="true"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/same_day_messenger_service" />
+
+        <RadioButton
+            android:id="@+id/nextday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/next_day_ground_delivery" />
+
+        <RadioButton
+            android:id="@+id/pickup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/pick_up" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/phone_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@id/option_textView"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="212dp"
+        android:ems="10"
+        android:imeOptions="actionSend"
+        android:hint="@string/call_delivery_service"
+        android:inputType="phone"
+        android:textAlignment="textStart" />
+
+</RelativeLayout>

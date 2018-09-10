@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Scrolling Text</string>
+    <string name="article_title">Android Operating System</string>
+    <string name="article_subtitle">What\'s Android exactly?</string>
+    <string name="article_text"><b>Android</b> is an operating system for mobile devices. It is mostly used for <i>Smartphones</i>, like Google\'s own Google Nexus, as well as by other phone manufacturers like HTC and Samsung. It has also been used for tablets such as the Motorola Xoom and Amazon Kindle. A modified Linux kernel is used as Android\'s kernel.\n
+Google says that over 1.3 million Android smartphones are sold every day.Most mobile phones run Android, making it the most popular mobile operating system. It is also the most popular operating system in general.\nIt supports multitasking and two-dimensional and three-dimensional graphics.\n\n
+Programs for Android, also called "apps", come from the Google Play Store. The Android programs have an extension of .apk. Android programs are built in Python, C, C++, or Java programming languages but the UI is always made using Java and XML. There are over 2.8 million apps available for Android.[13] Some apps are distributed by other than the Google Play Store.\n\n
+Rooting is obtaining root access. This allows changing Android in ways the device manufacturer did not intend.
+        For example, it may allow more freedom in installing or removing apps. Rooting may break the device and/or remove the warranty.
+        \n\n Visit <i>https://simple.wikipedia.org/wiki/Android_(operating_system)</i> for more information.
+    </string>
+
+    <string name="button_text">Add Comment</string>
+
+</resources>
