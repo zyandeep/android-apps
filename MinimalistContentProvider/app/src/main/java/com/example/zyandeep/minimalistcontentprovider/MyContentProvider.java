@@ -16,6 +16,8 @@ public class MyContentProvider extends ContentProvider {
     public MyContentProvider() { }
 
 
+
+
     @Override
     public boolean onCreate() {
         // create the data source
@@ -23,8 +25,8 @@ public class MyContentProvider extends ContentProvider {
 
 
         // add uris
-        uriMatcher.addURI(MyContract.AUTHORITY, MyContract.CONTENT_PATH, 0);
-        uriMatcher.addURI(MyContract.AUTHORITY, MyContract.CONTENT_PATH + "/#", 1);
+        uriMatcher.addURI(MyContract.AUTHORITY, MyContract.CONTENT_PATH + "/#", 0);
+        uriMatcher.addURI(MyContract.AUTHORITY, MyContract.CONTENT_PATH, 1);
 
         return true;
     }
@@ -39,9 +41,9 @@ public class MyContentProvider extends ContentProvider {
     public String getType(Uri uri) {
         switch (uriMatcher.match(uri)) {
             case 0:
-                return MyContract.MULTIPLE_RECORDS_MIME_TYPE;
-            case 1:
                 return MyContract.SINGLE_RECORD_MIME_TYPE;
+            case 1:
+                return MyContract.MULTIPLE_RECORDS_MIME_TYPE;
 
             default:
                 return null;
@@ -62,7 +64,7 @@ public class MyContentProvider extends ContentProvider {
 
 
         switch (uriMatcher.match(uri)) {
-            case 0:
+            case 1:
 
                 // get multiple records
                 for (String word : words) {
@@ -70,7 +72,7 @@ public class MyContentProvider extends ContentProvider {
                 }
                 break;
 
-            case 1:
+            case 0:
                 // get a single record
                 cursor.addRow(new Object[]{words[0]});
                 break;
