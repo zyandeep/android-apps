@@ -18,6 +18,11 @@ public class MyContentProvider extends ContentProvider {
     private static final int URI_ONE_ITEM_CODE = 1;
     private static final int URI_ALL_ITEM_CODE = 10;
 
+    private static final String SINGLE_ITEM_TYPE = "vnd.android.cursor.item/com.zyandeep.mycpapp.provider.employee";
+    private static final String MULTIPLE_ITEM_TYPE = "vnd.android.cursor.dir/com.zyandeep.mycpapp.provider.employee";
+
+
+
     private UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private SQLiteDatabase mDb;
 
@@ -38,7 +43,16 @@ public class MyContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        return null;
+        switch (uriMatcher.match(uri)) {
+            case URI_ONE_ITEM_CODE:
+                return SINGLE_ITEM_TYPE;
+
+            case URI_ALL_ITEM_CODE:
+                return MULTIPLE_ITEM_TYPE;
+
+            default:
+                return null;
+        }
     }
 
     @Override

@@ -2,15 +2,24 @@ package com.example.zyandeep.myproviderclient;
 
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     TextView tv;
-    Uri uri;
+
+    // content uri
+    private static final Uri queryUri = Uri.parse("content://com.zyandeep.mycpapp.provider/employee");
+    private static final int LOADER_ID = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,27 +27,41 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv = findViewById(R.id.data_tv);
-        uri = Uri.parse("content://com.zyandeep.mycpapp.provider/employee");
+
+        // connect to the loader
+        if (getSupportLoaderManager().getLoader(LOADER_ID) != null) {
+            getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+        }
     }
 
 
     public void loadData(View view) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, "id DESC");
+        // restart the loader to load new data
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+    }
 
-        StringBuilder data = new StringBuilder();
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        return new CursorLoader(this, queryUri, null, null, null, "id DESC");
+    }
 
-        if (cursor != null && cursor.getCount() > 0) {
-            while (cursor.moveToNext()) {
-                data.append(cursor.getInt(0) + " : "
-                        + cursor.getString(1) + " : " + cursor.getString(2) + "\n");
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        StringBuilder res = new StringBuilder();
+
+        if (data != null && data.getCount() > 0) {
+            while (data.moveToNext()) {
+                res.append(data.getInt(0) + " : "
+                        + data.getString(1) + " : " + data.getString(2) + "\n");
             }
 
-            tv.setText(data.toString());
+            tv.setText(res.toString());
         }
+    }
 
-
-        if (cursor != null) {
-            cursor.close();
-        }
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        // discard old data
     }
 }
