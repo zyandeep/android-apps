@@ -3,8 +3,14 @@ package com.example.zyandeep.mycontactaccess;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,11 +23,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     RecyclerView rv;
     MyRVadptar adptar;
     EditText ed;
+
+    private static final int LOADER_ID = 11;
+    private String searchFor = "";
 
 
     @Override
@@ -35,188 +44,95 @@ public class MainActivity extends AppCompatActivity {
         adptar = new MyRVadptar(this);
         rv.setAdapter(adptar);
         rv.setLayoutManager(new LinearLayoutManager(this));
+
+
+        // configuration has changed
+        if (savedInstanceState != null) {
+            this.searchFor = savedInstanceState.getString("search_key");
+
+            if (getSupportLoaderManager().getLoader(LOADER_ID) != null) {
+                getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+            }
+        }
     }
 
-    public void loadContacts(View view) {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        // load the contacts via AsyncTask
-        new MyAsyncTask(MainActivity.this).execute();
+        outState.putString("search_key", this.searchFor);
+    }
+
+
+    public void loadContacts(View view) {
+        this.searchFor = "";
+
+        // restart the loader
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
     public void serachContact(View view) {
-        String query = ed.getText().toString();
+        this.searchFor = ed.getText().toString();
 
-        // execute an AsyncTask to load the specific contact
-        new MyAnotherTask(MainActivity.this).execute(query);
+        // restart the loader
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
 
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        Uri queryUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    ///// Connect the Contacts ContentProvider and search for the contacts ///////////////////////////
-    private List<MyContactInfo> searchContactsDB(String query) {
-
-        List<MyContactInfo> myList = new ArrayList<>();
-        Cursor cursor = null;
-
-        String[] columns = new String[]{ContactsContract.Contacts._ID,
-                ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
-                ContactsContract.Contacts.HAS_PHONE_NUMBER};
+        String[] cols = new String[]{
+                ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY,
+                ContactsContract.CommonDataKinds.Phone.NUMBER,
+                ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
+        };
 
         String selection = null;
-        String[] args = null;
+        String[] arg = null;
 
-        if (!query.isEmpty()) {
-            selection = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?";
-            args = new String[]{"%" + query + "%"};
+        String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " ASC";
+
+        if (!searchFor.isEmpty()) {
+            selection = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY + " LIKE ?";
+            arg = new String[]{"%" + searchFor + "%"};
         }
 
-        String order = ContactsContract.Contacts.DISPLAY_NAME_PRIMARY;
-
-        cursor = getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, columns,
-                selection, args, order);
-
-        if (cursor != null) {
-            if (cursor.getCount() > 0) {
-
-                while (cursor.moveToNext()) {
-                    // get the contact
-                    String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                    String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME_PRIMARY));
-                    int hasPhNo = Integer.parseInt(cursor.getString
-                            (cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
-
-                    if (hasPhNo > 0) {                  // hasPhNo == 1
-                        // get the phone number
-                       selection = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?";
-                       args = new String[]{id};
+        return new CursorLoader(this, queryUri, cols, selection, arg, sortOrder);
+    }
 
 
-                        Cursor c2 = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                null, selection, args, null);
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
 
-                        // A contact might have many phone numbers
-                        while (c2.moveToNext()) {
+        List<MyContactInfo> contacts = new ArrayList<>();
 
-                            String ph = c2.getString(c2.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                            String acType = c2.getString(c2.getColumnIndex(
-                                    ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
 
-                            // Only add phone numbers of account type com.google
-                            // not whatsapp, duo, fb etc
+        if (data != null && data.getCount() > 0) {
+            while (data.moveToNext()) {
 
-                            if (acType.equalsIgnoreCase("com.google")) {
-                                MyContactInfo contactInfo = new MyContactInfo();
-                                contactInfo.setName(name);
-                                contactInfo.setPhoneNo(ph);
+                String acType = data.getString(data.getColumnIndex(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
 
-                                // add the object in the list
-                                myList.add(contactInfo);
-                            }
-                        }
+                if (acType.equalsIgnoreCase("com.google")) {
 
-                        c2.close();
-                    }
+                    MyContactInfo obj = new MyContactInfo();
+                    obj.setName(data.getString(data.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY)));
+                    obj.setPhoneNo( data.getString(data.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+
+                    // add the object into the list
+                    contacts.add(obj);
                 }
+
             }
-            else {
-                // No contacts found
-                Toast.makeText(MainActivity.this, "No contacts found on the device", Toast.LENGTH_SHORT).show();
-            }
-
-            cursor.close();
         }
 
-        return myList;
+        // give data to the adaptar
+        adptar.addContacts(contacts);
     }
 
-
-
-    // Load only specific contacts in the background
-    //////////////////////////////////////////////////////////////////////////////
-    private class MyAnotherTask extends AsyncTask<String, Void, List<MyContactInfo>> {
-
-        Context context;
-        ProgressDialog pd;
-
-        public MyAnotherTask(Context context) {
-            this.context = context;
-        }
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            pd = new ProgressDialog(context);
-            pd.setTitle("Contacts");
-            pd.setMessage("Loading... Please wait");
-            pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pd.setCancelable(false);
-            pd.show();
-        }
-
-        @Override
-        protected List<MyContactInfo> doInBackground(String... strings) {
-
-            // load contacts in the background
-            return searchContactsDB(strings[0]);
-        }
-
-        @Override
-        protected void onPostExecute(List<MyContactInfo> myContactInfos) {
-            super.onPostExecute(myContactInfos);
-
-            pd.cancel();
-
-            // update the UI
-            // give the data to the recyclerview adaptar
-            adptar.addContacts(myContactInfos);
-        }
-    }
-
-
-    // Load all the contacts in the background
-    //////////////////////////////////////////////////////////////////////////////
-    private class MyAsyncTask extends AsyncTask<Void, Void, List<MyContactInfo>> {
-
-        Context context;
-        ProgressDialog pd;
-
-        public MyAsyncTask(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            // Show an indeterminate progress dialog
-
-            pd = new ProgressDialog(context);
-            pd.setTitle("Contacts");
-            pd.setMessage("Loading... Please wait");
-            pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pd.setCancelable(false);
-            pd.show();
-        }
-
-        @Override
-        protected List<MyContactInfo> doInBackground(Void... voids) {
-
-            // load contacts in the background
-            return searchContactsDB("");
-        }
-
-        @Override
-        protected void onPostExecute(List<MyContactInfo> myContactInfos) {
-            super.onPostExecute(myContactInfos);
-
-            pd.dismiss();
-
-            // update the UI
-            // give the data to the recyclerview adaptar
-            adptar.addContacts(myContactInfos);
-        }
-    }
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) { }
 }
