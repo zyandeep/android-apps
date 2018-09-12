@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             this.searchFor = savedInstanceState.getString("search_key");
 
             if (getSupportLoaderManager().getLoader(LOADER_ID) != null) {
+
+                // if the loader exist, restart the loader
                 getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
             }
         }
