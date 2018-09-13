@@ -1,14 +1,18 @@
 package com.example.zyandeep.mycontactaccess;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     EditText ed;
 
     private static final int LOADER_ID = 11;
+    private static final int MY_PERMISSION_ID = 9;
     private String searchFor = "";
 
 
@@ -52,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             if (getSupportLoaderManager().getLoader(LOADER_ID) != null) {
 
-                // if the loader exist, restart the loader
-                getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+                // request contact access permission
+                askReadContactPermission();
             }
         }
     }
@@ -67,17 +72,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     public void loadContacts(View view) {
+
         this.searchFor = "";
 
-        // restart the loader
-        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+        // request contact access permission
+        askReadContactPermission();
     }
 
     public void serachContact(View view) {
+
         this.searchFor = ed.getText().toString();
 
-        // restart the loader
-        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+        // request contact access permission
+        askReadContactPermission();
     }
 
 
@@ -137,4 +144,41 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) { }
+
+
+
+    // check and ask for permission
+    private void askReadContactPermission() {
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, MY_PERMISSION_ID);
+
+        }
+        else {
+            // have permission to read the contacts
+            getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == MainActivity.MY_PERMISSION_ID) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                // user granted the permission
+                // so read the contacts
+                getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+            }
+            else {
+
+                // user denied the permission
+                Toast.makeText(this, "No permission granted for reading contacts", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

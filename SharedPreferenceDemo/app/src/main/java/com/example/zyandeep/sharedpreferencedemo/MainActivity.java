@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else {
             editor.clear();
             editor.apply();
+
         }
 
         Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show();

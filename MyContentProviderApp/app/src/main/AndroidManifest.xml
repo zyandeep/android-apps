@@ -21,6 +21,7 @@
             android:name=".MyContentProvider"
             android:authorities="com.zyandeep.mycpapp.provider"
             android:enabled="true"
+            android:permission="com.example.zyandeep.mycontentproviderapp.MY_ACCESS_CP"
             android:exported="true">
         </provider>
     </application>
