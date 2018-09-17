@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/msg_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="Enter message here..."
+        android:inputType="text|textAutoCorrect|textAutoComplete|textMultiLine|textLongMessage"
+        android:selectAllOnFocus="true"
+        android:singleLine="false" />
+
+    <EditText
+        android:id="@+id/ph_no_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="87dp"
+        android:ems="10"
+        android:imeOptions="actionSend"
+        android:hint="Enter a phone number"
+        android:inputType="phone"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
+
+    <ImageButton
+        android:id="@+id/send_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="141dp"
+        android:onClick="sendMessage"
+        app:srcCompat="@drawable/ic_send" />
+</RelativeLayout>
