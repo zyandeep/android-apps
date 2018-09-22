@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Walk My Android</string>
+    <string name="hint_text">Press the button to start tracking your location.</string>
+</resources>

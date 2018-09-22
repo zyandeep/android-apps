@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">priyaproject</string>
+    <string name="hello_text">hello world</string>
+    <string name="click_ok">click me</string>
+    <string name="name_your">enter your name</string>
+</resources>

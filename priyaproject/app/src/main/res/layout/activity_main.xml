@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:fontFamily="monospace"
+        android:text="@string/hello_text"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+    <Button
+        android:id="@+id/b1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="101dp"
+        android:onClick="show_name"
+        android:text="@string/click_ok" />
+
+    <EditText
+        android:id="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="192dp"
+        android:ems="10"
+        android:hint="@string/name_your"
+        android:inputType="text|textMultiLine|textPersonName"
+        android:selectAllOnFocus="true"
+        android:textSize="24sp" />
+
+</RelativeLayout>
