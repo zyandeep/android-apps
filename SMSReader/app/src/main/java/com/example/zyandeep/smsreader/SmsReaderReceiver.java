@@ -1,21 +1,22 @@
 package com.example.zyandeep.smsreader;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
-import android.util.Log;
 import android.widget.Toast;
 
 public class SmsReaderReceiver extends BroadcastReceiver {
 
+    private Context mContext;
+
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        this.mContext = context;
+
         if (intent.getAction().equalsIgnoreCase("android.provider.Telephony.SMS_RECEIVED")) {
 
             // retrieve all the info as a bundle
@@ -41,9 +42,20 @@ public class SmsReaderReceiver extends BroadcastReceiver {
 
                     msgBody += smsMessages[i].getMessageBody();
                 }
-            }
 
-            Toast.makeText(context, senderAddress + " : " + msgBody, Toast.LENGTH_LONG).show();
+
+                Toast.makeText(context, senderAddress + " : " + msgBody, Toast.LENGTH_LONG).show();
+
+                sendReply(senderAddress);
+            }
         }
+    }
+
+
+    private void sendReply(String number) {
+        SmsManager manager = SmsManager.getDefault();
+        String reply = mContext.getString(R.string.reply_text);
+
+        manager.sendTextMessage(number, null, reply, null, null);
     }
 }

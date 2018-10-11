@@ -62,9 +62,10 @@ public class MyDBHelper extends SQLiteOpenHelper {
 
         try {
             c = this.db.rawQuery("select * from " + DB_TABLE_NAME, null);
+
             while (c.moveToNext()) {
-                String name = c.getString(1);
-                String college = c.getString(2);
+                String name = c.getString(c.getColumnIndex("name"));
+                String college = c.getString(c.getColumnIndex("college"));
 
                 res.append(name + " : " + college + "\n");
             }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SMS Reader</string>
+
+    <string name="reply_text">
+        This is a computer generated message. Don\'t reply.
+    </string>
+
 </resources>

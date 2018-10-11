@@ -3,22 +3,16 @@ package com.example.zyandeep.walkmyandroid;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.AsyncTask;
 import android.os.Looper;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,11 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean trackingLocation = false;       // whether the location is being tracked???
 
     Location mLocation;
-    FusedLocationProviderClient client;
+    FusedLocationProviderClient locationProviderClient;
     LocationRequest mLocationRequest;
     LocationCallback mLocationCallback;
 
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         startButton = findViewById(R.id.button_start);
         stopButton = findViewById(R.id.button_stop);
 
-        client = LocationServices.getFusedLocationProviderClient(this);
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -81,12 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 super.onLocationResult(locationResult);
 
                 mLocation = locationResult.getLastLocation();
-
                 Log.d(TAG, mLocation.toString());
 
-                //new MyAsyncTask(getApplicationContext()).execute(mLocation);
-
-
+                new MyAsyncTask(getApplicationContext()).execute(mLocation);
             }
         };
 
@@ -120,12 +115,40 @@ public class MainActivity extends AppCompatActivity {
 
                 // access the Location service
                 this.havePermission = true;
-            } else {
+            }
+            else {
 
                 this.havePermission = false;
                 Toast.makeText(this, "No permission granted", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+
+    private void checkGPSEnable() {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+
+        // Get a reference to device's setting
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        client.checkLocationSettings(builder.build()).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (e instanceof ResolvableApiException) {
+
+                    // Location settings are not satisfied
+                    // show the user a dialog
+
+                    try {
+                        ((ResolvableApiException) e).startResolutionForResult(MainActivity.this, 220);
+
+                    } catch (IntentSender.SendIntentException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
 
@@ -137,7 +160,11 @@ public class MainActivity extends AppCompatActivity {
         if (havePermission) {
             // get the location
 
-            client.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
+            // Need to check the correct location setting on the device
+            checkGPSEnable();
+
+
+            locationProviderClient.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
 
@@ -146,9 +173,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else {
                         mLocation = location;
+
                         Log.d(TAG, mLocation.getLatitude() + " : " + mLocation.getLongitude());
 
-                        //new MyAsyncTask(getApplicationContext()).execute(mLocation);
+                        new MyAsyncTask(getApplicationContext()).execute(mLocation);
                     }
                 }
             });
@@ -162,8 +190,12 @@ public class MainActivity extends AppCompatActivity {
         askPermission();
 
         if (havePermission) {
+
+            // Need to check the correct location setting on the device
+            checkGPSEnable();
+
             this.trackingLocation = true;
-            client.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper() /* null */);
+            locationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper() /* null */);
 
             updateUI();
         }
@@ -172,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     public void stopTrackingLocation(View view) {
         this.trackingLocation = false;
 
-        client.removeLocationUpdates(mLocationCallback);
+        locationProviderClient.removeLocationUpdates(mLocationCallback);
 
         updateUI();
     }
@@ -212,6 +244,10 @@ public class MainActivity extends AppCompatActivity {
             startTrackingLocation(null);
         }
     }
+
+
+
+
 
 
 
@@ -272,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                 mTextView.setText("Unknown location");
             }
             else {
-                mTextView.setText(s);
+                mTextView.append(s + "\n");
             }
         }
     }
