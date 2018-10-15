@@ -1,14 +1,17 @@
 package com.example.zyandeep.detecthardware;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 
@@ -34,13 +37,12 @@ public class MyUtilityClass {
     private int mCounter = 0;
 
     private static final String DEFAULT_SOS_MSG = "I'M IN DANGER";
-    private static final String DEFAULT_CONTACT_NO = "9859335453";
 
 
     public MyUtilityClass(final Context mContext) {
         this.mContext = mContext;
 
-        mLocationProviderClient =  LocationServices.getFusedLocationProviderClient(mContext);
+        mLocationProviderClient = LocationServices.getFusedLocationProviderClient(mContext);
 
         mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -61,6 +63,8 @@ public class MyUtilityClass {
 
                     // get at max two location updates
                     new MyAsyncTask(mContext).execute(location);
+
+                    // or send sms directly
                 }
             }
         };
@@ -73,7 +77,6 @@ public class MyUtilityClass {
         if (mLocationProviderClient != null) {
             mCounter = 0;
 
-            // request periodic location updates
             mLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper() /* null */);
         }
     }
@@ -84,10 +87,12 @@ public class MyUtilityClass {
         // remove periodic location updates
         mLocationProviderClient.removeLocationUpdates(mLocationCallback);
 
-        Log.d(MainActivity.TAG, mapUrl);
+        Log.d(MainActivity.TAG, phNo);
 
         SmsManager smsManager = SmsManager.getDefault();
         String smsBody = DEFAULT_SOS_MSG + "\n" + mapUrl;
+
+        Log.d(MainActivity.TAG, smsBody);
 
 
         PendingIntent sentIntent = PendingIntent.getBroadcast(mContext, 20, new Intent(MyReceiver.ACTION_SMS_SENT),
@@ -163,7 +168,7 @@ public class MyUtilityClass {
             String url = String.format("https://www.google.com/maps/search/?api=1&query=%f,%f",
                                         mLocation.getLatitude(), mLocation.getLongitude());
 
-            sendSMS(s, url, DEFAULT_CONTACT_NO);
+            sendSMS(s, url, MainActivity.mPhoneNumber);
         }
     }
 }

@@ -32,9 +32,12 @@ public class MainActivity extends AppCompatActivity {
     public void selectContact(View view) {
         // Start an activity for the user to pick a phone number from contacts
         Intent i = new Intent(Intent.ACTION_PICK);
-        i.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+
+        //i.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
 
         // or set MIME TYPE
+        i.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+
 
         if (i.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(i, MY_REQUEST_CODE);

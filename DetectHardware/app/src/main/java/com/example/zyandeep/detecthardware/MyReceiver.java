@@ -24,11 +24,17 @@ public class MyReceiver extends BroadcastReceiver {
 
         switch (intent.getAction()) {
             case ACTION_SMS_SENT:
-                Toast.makeText(context, "SOS Message Sent", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "SOS Message Sent", Toast.LENGTH_LONG).show();
+
+                Log.d(MainActivity.TAG, "SOS Message Sent");
+
                 break;
 
             case ACTION_SMS_DELIVERED:
-                Toast.makeText(context, "SOS Message Delivered", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "SOS Message Delivered", Toast.LENGTH_LONG).show();
+
+                Log.d(MainActivity.TAG, "SOS Message Delivered");
+
                 break;
 
             default:

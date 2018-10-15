@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 .setRequestId("JEC")
                 .setCircularRegion(26.746288, 94.248856, RADIUS)
 
-                // until the user don't turn it of manually
+                // until the user turn it of manually
 
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_EXIT)

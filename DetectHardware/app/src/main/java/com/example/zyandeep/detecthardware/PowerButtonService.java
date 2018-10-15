@@ -59,8 +59,6 @@ public class PowerButtonService extends Service{
             if (utility != null) {
                 utility.startSOSProcess();
             }
-
-
             // give user a haptic feedback only when Power button was pressed
 
             if (intent.getIntExtra(MyReceiver.BUTTON_PRESSED, 0) == 5) {

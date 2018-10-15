@@ -4,10 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -32,12 +37,20 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "SOS_APP";
 
     private static final int MY_PERMISSION_REQUEST = 122;
+    private static final int MY_REQUEST_CODE = 98;
+
+    private TextView contactTextView;
+
+    // user provided phone number
+    public static String mPhoneNumber;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        contactTextView = findViewById(R.id.contact_tv);
 
         // start the service
         startService(new Intent(this, PowerButtonService.class));
@@ -52,18 +65,17 @@ public class MainActivity extends AppCompatActivity {
 
                 // Make sure mobile data is ON and so is GPS
 
-                checkDataConnection();
+                //checkGPS();
 
-                checkGPS();
-
+                //checkDataConnection();
 
                 Intent i = new Intent(MainActivity.this, PowerButtonService.class);
                 i.putExtra(MyReceiver.SOS_TRIGGERED, true);
 
                 // Trigger the SOS Service
-                //startService(i);
+                startService(i);
 
-                //Snackbar.make(findViewById(R.id.my_layout), "SOS Service Triggered", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(R.id.my_layout), "SOS Service Triggered", Snackbar.LENGTH_LONG).show();
             }
         });
     }
@@ -98,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
                     // Location settings are not satisfied
                     // show the user a dialog
-
                     try {
                         ((ResolvableApiException) e).startResolutionForResult(MainActivity.this, 220);
 
@@ -159,5 +170,53 @@ public class MainActivity extends AppCompatActivity {
         });
 
         snackbar.show();
+    }
+
+
+    public void chooseContact(View view) {
+        // Start an activity for the user to pick a phone number from contacts
+        Intent i = new Intent(Intent.ACTION_PICK);
+
+        //i.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+
+        // or set MIME TYPE
+        i.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+
+
+        if (i.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(i, MY_REQUEST_CODE);
+        }
+    }
+
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MY_REQUEST_CODE && resultCode == RESULT_OK) {
+
+            //  Get the contact URI for the selected contact and query the content provider for the phone number
+
+            Uri uri = data.getData();
+
+            //Log.d(TAG, "phone : " + uri.toString());
+
+            String[] cols = new String[]{
+                    ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY,
+                    ContactsContract.CommonDataKinds.Phone.NUMBER
+            };
+
+            try (Cursor cursor = getContentResolver().query(uri, cols, null, null, null)) {
+
+                if (cursor != null && cursor.moveToNext()) {
+                    String name = cursor.getString(0);
+                    mPhoneNumber = cursor.getString(1);
+
+                    contactTextView.setText(String.format("%s : %s", name, mPhoneNumber));
+                }
+            }
+            catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
     }
 }

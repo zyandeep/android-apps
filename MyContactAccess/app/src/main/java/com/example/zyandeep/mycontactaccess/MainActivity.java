@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void askReadContactPermission() {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
+                == PackageManager.PERMISSION_DENIED) {
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, MY_PERMISSION_ID);
 
