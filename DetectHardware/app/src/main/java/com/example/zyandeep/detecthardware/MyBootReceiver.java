@@ -12,7 +12,6 @@ public class MyBootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Log.d(MainActivity.TAG, "boot completed");
-        Toast.makeText(context, "Boot completed", Toast.LENGTH_SHORT).show();
 
         // start the PowerButton Service
         context.startService(new Intent(context, PowerButtonService.class));

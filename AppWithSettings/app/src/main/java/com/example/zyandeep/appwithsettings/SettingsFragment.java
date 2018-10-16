@@ -45,7 +45,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
 
         checkbox = findPreference("check_box_pref");
-        checkbox.setOnPreferenceChangeListener(this);
+        checkbox.setOnPreferenceChangeListener(SettingsFragment.this);
 
     }
 

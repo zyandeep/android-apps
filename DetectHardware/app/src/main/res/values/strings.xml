@@ -3,4 +3,6 @@
 
     <string name="intro_text"> Save Your DAMN Life! </string>
 
+    <string name="default_msg"> I\'M IN DANGER </string>
+
 </resources>
