@@ -59,12 +59,10 @@ public class MyUtilityClass {
 
                 Log.d(MainActivity.TAG, location.toString());
 
-                if (mCounter == 2) {
+                if (mCounter == 3) {
 
-                    // get at max two location updates
-                    //new MyAsyncTask(mContext).execute(location);
-
-                    // or send sms directly
+                    // get at max three location updates
+                    // and then send sms
 
                     String url = String.format("https://www.google.com/maps/search/?api=1&query=%f,%f",
                             location.getLatitude(), location.getLongitude());
@@ -96,9 +94,6 @@ public class MyUtilityClass {
         SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         String sosMsg = sh.getString("user_msg",mContext.getString(R.string.default_msg));
-
-        //Log.d(MainActivity.TAG, sosMsg);
-
 
 
         SmsManager smsManager = SmsManager.getDefault();

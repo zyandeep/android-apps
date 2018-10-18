@@ -58,13 +58,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                     // Write back the default preference values
                     SharedPreferences.Editor edit = sh.edit();
-                    edit.putString("user_msg", getString(R.string.default_msg));
+                    edit.clear();
                     edit.apply();
+
 
                     // just show the new value in summary
                     editText.setSummary(getString(R.string.default_msg));
 
-                    Toast.makeText(getContext(), "The default text has been set", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "DEFAULT TEXT HAS BEEN SET", Toast.LENGTH_SHORT).show();
                 }
 
                 return true;

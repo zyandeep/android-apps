@@ -1,11 +1,16 @@
 package com.example.zyandeep.detecthardware;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 public class PowerButtonService extends Service{
     private MyReceiver myReceiver;
@@ -50,21 +55,31 @@ public class PowerButtonService extends Service{
 
             // Is LOCATION_PERMISSION enable ?
             // Is SMS_PERMISSION enable ?
-            // Check whether Mobile Data and Location Setting are ON
 
             // IF ALL ARE YES then start SOS process
 
-            Log.d(MainActivity.TAG, "Starting SOS Service...");
 
-            if (utility != null) {
-                utility.startSOSProcess();
-            }
-            // give user a haptic feedback only when Power button was pressed
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+                    != PackageManager.PERMISSION_GRANTED) {
 
-            if (intent.getIntExtra(MyReceiver.BUTTON_PRESSED, 0) == 5) {
-                Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
-                vibrator.vibrate(1000);
+                Toast.makeText(getApplicationContext(), "TURN ON THE PERMISSIONS FIRST", Toast.LENGTH_LONG).show();
             }
+            else {
+                Log.d(MainActivity.TAG, "Starting SOS Service...");
+
+                if (utility != null) {
+                    utility.startSOSProcess();
+                }
+                // give user a haptic feedback only when Power button was pressed
+
+                if (intent.getIntExtra(MyReceiver.BUTTON_PRESSED, 0) == 5) {
+                    Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+                    vibrator.vibrate(1000);
+                }
+            }
+
+
         }
 
         return START_STICKY;

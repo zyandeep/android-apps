@@ -51,21 +51,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Do we have the required permissions
+        // ACCESS_LOCATION and READ_SMS
+        askPermission();
+
+
         contactTextView = findViewById(R.id.contact_tv);
 
         // start the service
         startService(new Intent(this, PowerButtonService.class));
-
-        // Do we have the required permissions
-        // ACCESS_LOCATION and READ_SMS
-        askPermission();
 
         (findViewById(R.id.my_fab)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // Make sure the GPS is ON
-
                 checkGPS();
             }
         });
@@ -155,13 +155,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == MY_PERMISSION_REQUEST_CODE && grantResults.length > 0) {
 
             if (grantResults[0] == PackageManager.PERMISSION_DENIED && grantResults[1] == PackageManager.PERMISSION_DENIED) {
-                showSnackBar("Turn on Location and SMS permission");
+                showSnackBar("TURN ON LOCATION AND SMS PERMISSION");
             }
             else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                showSnackBar("Turn on Location permission");
+                showSnackBar("TURN ON LOCATION PERMISSION");
             }
             else if (grantResults[1] == PackageManager.PERMISSION_DENIED) {
-                showSnackBar("Turn on SMS permission");
+                showSnackBar("TURN ON SMS PERMISSION");
             }
         }
     }
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
     private void showSnackBar(String msg) {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.my_layout), msg, Snackbar.LENGTH_LONG);
 
-        snackbar.setAction("Go to settings", new View.OnClickListener() {
+        snackbar.setAction("GO TO SETTINGS", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Send user to the setting activity
@@ -251,6 +251,6 @@ public class MainActivity extends AppCompatActivity {
 
         startService(i);
 
-        Snackbar.make(findViewById(R.id.my_layout), "SOS Service Triggered", Snackbar.LENGTH_LONG).show();
+        Snackbar.make(findViewById(R.id.my_layout), "SOS SERVICE TRIGGERED", Snackbar.LENGTH_LONG).show();
     }
 }
