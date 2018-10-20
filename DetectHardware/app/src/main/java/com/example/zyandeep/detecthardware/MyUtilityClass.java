@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -24,8 +25,18 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Arrays;
+
 
 public class MyUtilityClass {
+
+    private static final String KEY_CON1 = "con1";
+    private static final String KEY_CON2 = "con2";
+    private static final String KEY_CON3 = "con3";
+    private static final String KEY_CONTACTS_NO = "no_of_contacts";
+
+    private static final String DELIMITER = "/";
+
 
     FusedLocationProviderClient mLocationProviderClient;
     LocationRequest mLocationRequest;
@@ -35,11 +46,17 @@ public class MyUtilityClass {
 
     private int mCounter = 0;
 
-    private static final String DEFAULT_PHONE_NUMBER = "9859335453";
+    private static final String PREF_FILE_NAME = "com.example.zyandeep.contactpickerapp.my_pref";
+
+    private String[] phoneNumbers;
+    private SharedPreferences sh;
 
 
     public MyUtilityClass(final Context mContext) {
         this.mContext = mContext;
+
+        sh = mContext.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+
 
         mLocationProviderClient = LocationServices.getFusedLocationProviderClient(mContext);
 
@@ -67,7 +84,7 @@ public class MyUtilityClass {
                     String url = String.format("https://www.google.com/maps/search/?api=1&query=%f,%f",
                             location.getLatitude(), location.getLongitude());
 
-                    sendSMS(url, ((MainActivity.mPhoneNumber == null) ? DEFAULT_PHONE_NUMBER : MainActivity.mPhoneNumber));
+                    sendSMS(url, phoneNumbers);
                 }
             }
         };
@@ -75,8 +92,45 @@ public class MyUtilityClass {
     }
 
 
-    @SuppressLint("MissingPermission")
+
     public void startSOSProcess() {
+
+        int emgContacts = sh.getInt(KEY_CONTACTS_NO, 0);
+
+        if (emgContacts == 0) {
+            Toast.makeText(mContext, "ADD EMERGENCY CONTACTS FIRST!", Toast.LENGTH_LONG).show();
+        }
+        else if (emgContacts >= 2) {
+            initProcess();
+        }
+        else {
+            Toast.makeText(mContext, "ADD ONE MORE EMERGENCY CONTACT TO SEND SOS", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
+    @SuppressLint("MissingPermission")
+    private void initProcess() {
+
+        phoneNumbers = new String[]{
+                sh.getString(KEY_CON1, ""),
+                sh.getString(KEY_CON2, ""),
+                sh.getString(KEY_CON3, "")
+        };
+
+
+        for (int i = 0; i < phoneNumbers.length; i++) {
+            if (!phoneNumbers[i].isEmpty()) {
+
+                phoneNumbers[i] = phoneNumbers[i].split(DELIMITER)[1];
+            }
+        }
+
+
+        Log.d(MainActivity.TAG, Arrays.toString(phoneNumbers));
+
+
 
         if (mLocationProviderClient != null) {
             mCounter = 0;
@@ -86,7 +140,7 @@ public class MyUtilityClass {
     }
 
 
-    private void sendSMS(String mapUrl,  String phNo) {
+    private void sendSMS(String mapUrl,  String[] phNo) {
 
         // remove periodic location updates
         mLocationProviderClient.removeLocationUpdates(mLocationCallback);
@@ -107,6 +161,11 @@ public class MyUtilityClass {
         PendingIntent deliveryIntent = PendingIntent.getBroadcast(mContext, 73, new Intent(MyReceiver.ACTION_SMS_DELIVERED),
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        smsManager.sendTextMessage(phNo, null, smsBody, sentIntent, deliveryIntent);
+
+        for (String p : phNo) {
+            if (!p.isEmpty()) {
+                smsManager.sendTextMessage(p, null, smsBody, sentIntent, deliveryIntent);
+            }
+        }
     }
 }

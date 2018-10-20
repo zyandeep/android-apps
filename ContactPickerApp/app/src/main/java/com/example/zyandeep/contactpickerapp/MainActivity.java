@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView[] icons = new ImageView[3];
     TextView[] people = new TextView[3];
 
-
     TextView textView = null;
 
 
@@ -87,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         sh = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
+
+        // reading form the preference file
+
         emgContacts = sh.getInt(KEY_CONTACTS_NO, 0);
 
         // use a hashmap
@@ -115,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 3; i++) {
             icons[i].setImageResource(0);
             people[i].setText("");
+
+            unregisterForContextMenu(people[i]);
         }
 
 
@@ -165,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         if (textView != null) {
 
             String value = textView.getText().toString().replace("\n", DELIMITER);
+
 
             // need the key associate with the value
             for (String key : myContacts.keySet()) {

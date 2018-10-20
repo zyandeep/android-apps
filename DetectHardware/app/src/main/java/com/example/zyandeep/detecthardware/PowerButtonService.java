@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -15,8 +16,12 @@ import android.widget.Toast;
 public class PowerButtonService extends Service{
     private MyReceiver myReceiver;
 
+    private static final String PREF_FILE_NAME = "com.example.zyandeep.contactpickerapp.my_pref";
+    private static final String KEY_CONTACTS_NO = "no_of_contacts";
+
     MyUtilityClass utility;
 
+    SharedPreferences sh;
 
     public PowerButtonService() {
     }
@@ -27,6 +32,9 @@ public class PowerButtonService extends Service{
         super.onCreate();
 
         Log.d(MainActivity.TAG, "PowerButtonService created");
+
+        sh = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
+
 
         // For "ACTION_SCREEN_ON", "ACTION_SCREEN_OFF", "ACTION_USER_PRESENT"
         // Register the broadcast receiver dynamically
@@ -69,11 +77,15 @@ public class PowerButtonService extends Service{
                 Log.d(MainActivity.TAG, "Starting SOS Service...");
 
                 if (utility != null) {
+
                     utility.startSOSProcess();
                 }
-                // give user a haptic feedback only when Power button was pressed
 
-                if (intent.getIntExtra(MyReceiver.BUTTON_PRESSED, 0) == 5) {
+
+                // give user a haptic feedback only when Power button was pressed
+                if (intent.getIntExtra(MyReceiver.BUTTON_PRESSED, 0) == 5
+                        && sh.getInt(KEY_CONTACTS_NO, 0) >= 2) {
+
                     Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
                     vibrator.vibrate(1000);
                 }

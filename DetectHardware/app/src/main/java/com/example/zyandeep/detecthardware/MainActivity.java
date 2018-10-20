@@ -3,6 +3,7 @@ package com.example.zyandeep.detecthardware;
 import android.Manifest;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -36,14 +37,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "SOS_APP";
 
     private static final int MY_PERMISSION_REQUEST_CODE = 122;
-    private static final int MY_CONTACT_REQUEST_CODE = 98;
     private static final int MY_LOCATION_REQUEST_CODE = 19;
 
+    private static final String PREF_FILE_NAME = "com.example.zyandeep.contactpickerapp.my_pref";
+    private static final String KEY_CONTACTS_NO = "no_of_contacts";
 
-    private TextView contactTextView;
-
-    // user provided phone number
-    public static String mPhoneNumber;
+    private int emgContacts = 0;
 
 
     @Override
@@ -51,12 +50,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sh = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
+
+        emgContacts = sh.getInt(KEY_CONTACTS_NO, 0);
+
+        if (emgContacts == 0) {
+            Snackbar.make(findViewById(R.id.my_layout), "ADD EMERGENCY CONTACTS FIRST!", Snackbar.LENGTH_LONG).show();
+        }
+
+
         // Do we have the required permissions
         // ACCESS_LOCATION and READ_SMS
         askPermission();
 
-
-        contactTextView = findViewById(R.id.contact_tv);
 
         // start the service
         startService(new Intent(this, PowerButtonService.class));
@@ -186,53 +192,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void chooseContact(View view) {
-        // Start an activity for the user to pick a phone number from contacts
-        Intent i = new Intent(Intent.ACTION_PICK);
-
-        //i.setData(ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-
-        // or set MIME TYPE
-        i.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-
-
-        if (i.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(i, MY_CONTACT_REQUEST_CODE);
-        }
-    }
-
-
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == MY_CONTACT_REQUEST_CODE && resultCode == RESULT_OK) {
-
-            //  Get the contact URI for the selected contact and query the content provider for the phone number
-
-            Uri uri = data.getData();
-
-            //Log.d(TAG, "phone : " + uri.toString());
-
-            String[] cols = new String[]{
-                    ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY,
-                    ContactsContract.CommonDataKinds.Phone.NUMBER
-            };
-
-            try (Cursor cursor = getContentResolver().query(uri, cols, null, null, null)) {
-
-                if (cursor != null && cursor.moveToNext()) {
-                    String name = cursor.getString(0);
-                    mPhoneNumber = cursor.getString(1);
-
-                    contactTextView.setText(String.format("%s : %s", name, mPhoneNumber));
-                }
-            }
-            catch (Exception e) {
-                Log.e(TAG, e.getMessage());
-            }
-        }
-
-        else if (requestCode == MY_LOCATION_REQUEST_CODE) {
+         if (requestCode == MY_LOCATION_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 triggerSOSService();
             }
@@ -243,13 +206,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void triggerSOSService() {
+
         Intent i = new Intent(MainActivity.this, PowerButtonService.class);
         i.putExtra(MyReceiver.SOS_TRIGGERED, true);
 
-        startService(i);
-
-        Snackbar.make(findViewById(R.id.my_layout), "SOS SERVICE TRIGGERED", Snackbar.LENGTH_LONG).show();
+        if (emgContacts >= 2) {
+            startService(i);
+            Snackbar.make(findViewById(R.id.my_layout), "SOS SERVICE TRIGGERED", Snackbar.LENGTH_LONG).show();
+        }
+        else {
+            startService(i);
+        }
     }
 }
