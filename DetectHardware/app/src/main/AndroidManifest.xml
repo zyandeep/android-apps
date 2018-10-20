@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_sos_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,7 +40,7 @@
 
         <activity
             android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
 
         <receiver android:name=".MyAppWidget">
             <intent-filter>
@@ -50,6 +51,11 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/my_app_widget_info" />
         </receiver>
+
+        <activity
+            android:name=".ContactsActivity"
+            android:parentActivityName=".MainActivity" />
+
     </application>
 
 </manifest>

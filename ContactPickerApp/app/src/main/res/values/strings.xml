@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Contact Picker App</string>
+    <string name="update_contact_text">Your emergency contacts. Long tap on a contact to delete it.</string>
+</resources>

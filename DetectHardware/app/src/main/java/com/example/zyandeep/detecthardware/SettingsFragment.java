@@ -58,7 +58,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                     // Write back the default preference values
                     SharedPreferences.Editor edit = sh.edit();
-                    edit.clear();
+                    //edit.clear();
+                    //edit.remove("user_msg");
+
+                    edit.putString("user_msg", getString(R.string.default_msg));
+
                     edit.apply();
 
 

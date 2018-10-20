@@ -84,14 +84,13 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.emg_ph_menu:
-                Toast.makeText(this, "contact", Toast.LENGTH_SHORT).show();
+                Intent i1 = new Intent(this, ContactsActivity.class);
+                startActivity(i1);
                 break;
 
             case R.id.msg_menu:
-
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivity(i);
-
                 break;
         }
 
