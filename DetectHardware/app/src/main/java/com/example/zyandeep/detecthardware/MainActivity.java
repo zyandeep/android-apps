@@ -44,25 +44,19 @@ public class MainActivity extends AppCompatActivity {
 
     private int emgContacts = 0;
 
+    SharedPreferences sh;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sh = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
-
-        emgContacts = sh.getInt(KEY_CONTACTS_NO, 0);
-
-        if (emgContacts == 0) {
-            Snackbar.make(findViewById(R.id.my_layout), "ADD EMERGENCY CONTACTS FIRST!", Snackbar.LENGTH_LONG).show();
-        }
-
+        sh = getSharedPreferences(PREF_FILE_NAME, MODE_PRIVATE);
 
         // Do we have the required permissions
         // ACCESS_LOCATION and READ_SMS
         askPermission();
-
 
         // start the service
         startService(new Intent(this, PowerButtonService.class));
@@ -76,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        emgContacts = sh.getInt(KEY_CONTACTS_NO, 0);
+
+        if (emgContacts == 0) {
+            Snackbar.make(findViewById(R.id.my_layout), "ADD EMERGENCY CONTACTS FIRST!", Snackbar.LENGTH_LONG).show();
+        }
+    }
+
 
 
     @Override
@@ -211,6 +218,9 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(MainActivity.this, PowerButtonService.class);
         i.putExtra(MyReceiver.SOS_TRIGGERED, true);
 
+        Log.d(TAG, emgContacts + "");
+
+
         if (emgContacts >= 2) {
             startService(i);
             Snackbar.make(findViewById(R.id.my_layout), "SOS SERVICE TRIGGERED", Snackbar.LENGTH_LONG).show();
@@ -218,5 +228,15 @@ public class MainActivity extends AppCompatActivity {
         else {
             startService(i);
         }
+    }
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // start the service again
     }
 }

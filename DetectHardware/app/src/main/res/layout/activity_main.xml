@@ -27,7 +27,7 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:src="@drawable/ic_sos"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorAccent"
         app:elevation="15dp"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"

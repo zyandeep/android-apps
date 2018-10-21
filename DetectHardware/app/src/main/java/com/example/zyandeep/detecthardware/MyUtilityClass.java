@@ -97,6 +97,9 @@ public class MyUtilityClass {
 
         int emgContacts = sh.getInt(KEY_CONTACTS_NO, 0);
 
+        Log.d(MainActivity.TAG, emgContacts + "");
+
+
         if (emgContacts == 0) {
             Toast.makeText(mContext, "ADD EMERGENCY CONTACTS FIRST!", Toast.LENGTH_LONG).show();
         }
