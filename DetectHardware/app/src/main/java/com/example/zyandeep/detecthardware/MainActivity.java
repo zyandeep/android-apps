@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         emgContacts = sh.getInt(KEY_CONTACTS_NO, 0);
 
         if (emgContacts == 0) {
-            Snackbar.make(findViewById(R.id.my_layout), "ADD EMERGENCY CONTACTS FIRST!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.my_layout), "Add emergency contacts first", Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -167,13 +167,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == MY_PERMISSION_REQUEST_CODE && grantResults.length > 0) {
 
             if (grantResults[0] == PackageManager.PERMISSION_DENIED && grantResults[1] == PackageManager.PERMISSION_DENIED) {
-                showSnackBar("TURN ON LOCATION AND SMS PERMISSION");
+                showSnackBar("Turn on Location and SMS permission");
             }
             else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                showSnackBar("TURN ON LOCATION PERMISSION");
+                showSnackBar("Turn on Location permission");
             }
             else if (grantResults[1] == PackageManager.PERMISSION_DENIED) {
-                showSnackBar("TURN ON SMS PERMISSION");
+                showSnackBar("Turn on SMS permission");
             }
         }
     }
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
     private void showSnackBar(String msg) {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.my_layout), msg, Snackbar.LENGTH_LONG);
 
-        snackbar.setAction("GO TO SETTINGS", new View.OnClickListener() {
+        snackbar.setAction("Go to Settings", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Send user to the setting activity
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (emgContacts >= 2) {
             startService(i);
-            Snackbar.make(findViewById(R.id.my_layout), "SOS SERVICE TRIGGERED", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.my_layout), "SOS service triggered", Snackbar.LENGTH_LONG).show();
         }
         else {
             startService(i);
@@ -238,5 +238,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         // start the service again
+        Log.d(TAG, MainActivity.class.getSimpleName() + " destroyed");
     }
 }

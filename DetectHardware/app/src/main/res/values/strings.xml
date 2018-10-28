@@ -3,7 +3,7 @@
 
     <string name="intro_text"> Save Your DAMN Life! </string>
 
-    <string name="default_msg"> I\'M IN DANGER </string>
+    <string name="default_msg"> I\'M IN DANGER! </string>
     <string name="widget_button_text">SEND SOS</string>
 
     <string name="emg_contacts_text"> Long tap on an emergency contact to delete it. </string>

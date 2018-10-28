@@ -101,13 +101,13 @@ public class MyUtilityClass {
 
 
         if (emgContacts == 0) {
-            Toast.makeText(mContext, "ADD EMERGENCY CONTACTS FIRST!", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Add emergency contacts first", Toast.LENGTH_LONG).show();
         }
         else if (emgContacts >= 2) {
             initProcess();
         }
         else {
-            Toast.makeText(mContext, "ADD ONE MORE EMERGENCY CONTACT TO SEND SOS", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "Add one more emergency contact to send SOS", Toast.LENGTH_LONG).show();
         }
     }
 

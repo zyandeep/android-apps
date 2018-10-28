@@ -69,7 +69,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // just show the new value in summary
                     editText.setSummary(getString(R.string.default_msg));
 
-                    Toast.makeText(getContext(), "DEFAULT TEXT HAS BEEN SET", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Default text has been set", Toast.LENGTH_SHORT).show();
                 }
 
                 return true;

@@ -71,7 +71,7 @@ public class PowerButtonService extends Service{
                     != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                     != PackageManager.PERMISSION_GRANTED) {
 
-                Toast.makeText(getApplicationContext(), "TURN ON THE PERMISSIONS FIRST", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Turn on the permission(s) first", Toast.LENGTH_LONG).show();
             }
             else {
                 Log.d(MainActivity.TAG, "Starting SOS Service...");
@@ -106,7 +106,8 @@ public class PowerButtonService extends Service{
             unregisterReceiver(myReceiver);
         }
 
-        Log.d(MainActivity.TAG, "Service destroyed");
+        // start the service again
+        Log.d(MainActivity.TAG, PowerButtonService.class.getSimpleName() + " destroyed");
     }
 
 

@@ -99,15 +99,15 @@ public class ContactsActivity extends AppCompatActivity {
     private void checkContacts() {
 
         if (emgContacts == 0) {
-            Snackbar.make(findViewById(R.id.my_constLayout), "ADD EMERGENCY CONTACTS FIRST!", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.my_constLayout), "Add emergency contacts first", Snackbar.LENGTH_LONG).show();
         }
         else if (emgContacts == 1) {
 
-            Snackbar.make(findViewById(R.id.my_constLayout), "ADD ONE MORE EMERGENCY CONTACT TO SEND SOS", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.my_constLayout), "Add one more emergency contact to send SOS", Snackbar.LENGTH_LONG).show();
         }
         else if (emgContacts == 2) {
 
-            Snackbar.make(findViewById(R.id.my_constLayout), "ADD ONE MORE EMERGENCY CONTACT FOR BETTER SAFETY", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.my_constLayout), "Add one more emergency contact for better safety", Snackbar.LENGTH_LONG).show();
         }
 
         showContacts();
