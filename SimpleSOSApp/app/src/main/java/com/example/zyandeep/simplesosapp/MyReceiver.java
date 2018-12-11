@@ -72,7 +72,7 @@ public class MyReceiver extends BroadcastReceiver {
             }
         }
 
-        // Did we get 5 continuous Power Button Presses
+        // Did we get 4 continuous Power Button Presses
         if (mCount == 4) {
             Intent i = new Intent(context, PowerButtonService.class);
             i.putExtra(SOS_TRIGGERED, true);
