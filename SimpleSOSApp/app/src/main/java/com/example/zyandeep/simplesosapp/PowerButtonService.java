@@ -86,7 +86,9 @@ public class PowerButtonService extends Service{
                         && sh.getInt(KEY_CONTACTS_NO, 0) >= 2) {
 
                     Vibrator vibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
-                    vibrator.vibrate(1000);
+                    if (vibrator != null) {
+                        vibrator.vibrate(1000);
+                    }
                 }
             }
 

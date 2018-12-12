@@ -291,29 +291,4 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         //notifyUser();
     }
-
-
-
-   /* private void notifyUser() {
-        Intent contentIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingContentIntent = PendingIntent.getActivity(this, 92,
-                contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // notify the user
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_add_alert)
-                .setContentTitle("You're closing the app!")
-                .setContentText("Put the app in the background")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingContentIntent)
-                .setDefaults(NotificationCompat.DEFAULT_ALL)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.alert_bitmap))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.noti_text)))
-                .addAction(R.drawable.ic_add_alert, "open app", pendingContentIntent);
-
-
-        NotificationManagerCompat manager = NotificationManagerCompat.from(this);
-        manager.notify(22, builder.build());
-    }*/
 }
